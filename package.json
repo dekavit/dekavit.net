@@ -13,8 +13,10 @@
     "vitepress": "^1.0.0-rc.25"
   },
   "dependencies": {
+    "katex": "^0.16.9",
     "markdown-it-katex": "^2.0.3",
-    "react-katex": "^3.0.1"
+    "react-katex": "^3.0.1",
+    "vue": "^3.3.8"
   },
   "type": "module",
   "packageManager": "yarn@3.6.4"
