@@ -17,7 +17,6 @@ import katex from "markdown-it-katex"
 //     },
 // })
 export default {
-    base: '/dist/',
     markdown: {
         config: md => md.use(katex),
     }
