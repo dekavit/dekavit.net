@@ -2,7 +2,7 @@
 
 自分用に使いそうなものをメモしておきます
 
-# UnionFind木
+## UnionFind木
 
 頂点の連結判定や，木の結合，閉路検知を$O(α(N))$(ただし，$α(N)$は逆アッカーマン関数)で行えるデータ構造
 
@@ -86,7 +86,7 @@ class UnionFind {
 };
 ```
 
-# ランレングス圧縮
+## ランレングス圧縮
 
 文字列Sを，文字+何個その文字が連続するかという情報にするアルゴリズム
 
@@ -140,7 +140,7 @@ vector<pair<int, char>> RunLength(string S)
 }
 ```
 
-# エラトステネスの篩
+## エラトステネスの篩
 
 素数かどうかの情報が格納された配列を$O(\log\log N)$で返すアルゴリズム
 
@@ -160,7 +160,7 @@ vector<bool> Eratosthenes(int N){
 }
 ```
 
-# 素因数分解
+## 素因数分解
 
 素因数分解を行うアルゴリズム
 
@@ -204,7 +204,7 @@ vector<T>prime_factorization2(T N){
 }
 ```
 
-# 高速素因数分解
+## 高速素因数分解
 
 素因数分解を高速で行えるアルゴリズム
 
@@ -252,7 +252,7 @@ int main(){
 }
 ```
 
-# ダイクストラ法
+## ダイクストラ法
 
 グラフの最短経路を求めるのに使える
 
@@ -304,7 +304,7 @@ vector<node> dijkstra(T V, vector<T> &a, vector<T> &b, vector<T> &c, T S, int mo
 }
 ```
 
-# 遅延伝搬セグメントツリー
+## 遅延伝搬セグメントツリー
 
 [セグメント木を徹底解説！0から遅延評価やモノイドまで](https://algo-logic.info/segment-tree/)からコードを引っ張ってきた
 
@@ -393,7 +393,7 @@ struct RMQ {
 };
 ```
 
-# フェニック木(BIT)
+## フェニック木(BIT)
 
 [Binary Indexed Tree(フェニック木)](https://take44444.github.io/Algorithm-Book/range/bit/main.html)から引っ張ってきた
 
@@ -425,7 +425,7 @@ struct BinaryIndexedTree {
   }
 ```
 
-# 繰り返し二乗法
+## 繰り返し二乗法
 
 $A^N$を$O(\log N)$で求められるアルゴリズム
 
@@ -448,7 +448,7 @@ ll Pow(ll X, ll N)
 }
 ```
 
-# 一般化された繰り返し二乗法
+## 一般化された繰り返し二乗法
 
 
 
@@ -523,7 +523,7 @@ int main() {
 }
 ```
 
-# log2
+## log2
 
 $\lceil \log_2 N \rceil$ を$O(\log N)$で求める
 
@@ -537,7 +537,7 @@ int flog2(ll N){
 }
 ```
 
-<!-- # 正方行列のN乗
+<!-- ## 正方行列のN乗
 
 $N \times N$の正方行列$A$を$b$乗したものを$O(N^3 \log b)$で求める
 
@@ -601,7 +601,7 @@ std::vector<std::vector<long long>> MatrrixPow(long long N, std::vector<std::vec
 }
 ```
 
-# 正方行列のN乗の余り
+## 正方行列のN乗の余り
 
 ```cpp=
 // N*Nの正方行列Aのb乗の各要素をModで割った余りを返す
@@ -666,7 +666,7 @@ MatrrixPowMod(long long N, std::vector<std::vector<long long>> &A, long long b, 
 }
 ``` -->
 
-# 最小共通祖先(LCA)
+## 最小共通祖先(LCA)
 
 [ダブリングによる木の最近共通祖先（LCA：Lowest Common Ancestor）を求めるアルゴリズム](https://algo-logic.info/lca/)から引っ張ってきた
 
@@ -735,7 +735,7 @@ struct LCA {
 };
 ```
 
-# 畳み込み
+## 畳み込み
 
 FFTの一種である数論変換(NTT)による畳み込み
 
@@ -819,7 +819,7 @@ vectorM mulp(const vectorM& _f, const vectorM& _g) {
 }
 ```
 
-# string_mod
+## string_mod
 
 巨大な数字のmodを取るのに使える
 
@@ -836,7 +836,7 @@ ll string_mod(string s, ll mod) {
 }
 ```
 
-# rolling_hash
+## rolling_hash
 
 この人の解答から持ってきた
 
@@ -935,7 +935,7 @@ int main(){
 }
 ```
 
-# 仮分数
+## 仮分数
 
 ```cpp=
 template <class T> class frac {
@@ -1017,7 +1017,7 @@ template <class T> class frac {
 };
 ```
 
-# 形式的冪級数
+## 形式的冪級数
 
 依存ライブラリ <atcoder/modint>,<atcoder/convolution>
 
@@ -1237,7 +1237,7 @@ int main() {
 }
 ```
 
-# 多倍長数
+## 多倍長数
 
 ```cpp=
 #include <boost/multiprecision/cpp_dec_float.hpp>
@@ -1247,7 +1247,7 @@ using Bint = cpp_int;//任意長整数
 using Real32 = number<cpp_dec_float<32>>;//仮数部が32桁の浮動小数
 ```
 
-# 三分探索
+## 三分探索
 
 flag : true→最大値,false→最小値
 
@@ -1304,7 +1304,7 @@ int main() {
 }
 ```
 
-# 逆元
+## 逆元
 
 https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a より
 
@@ -1335,7 +1335,7 @@ long long modinv(long long a, long long m) {
 }
 ```
 
-# Mo's argorithm
+## Mo's argorithm
 
 区間$[l,r)$の答えから区間$[l-1,r+1)$の答えが高速にわかるときかつ、クエリの順番を入れ替えても問題がないときに、区間$[l,r)$に対するクエリを高速で処理できるデータ構造
 
@@ -1429,7 +1429,7 @@ int idx=mo.process()してからresをans[idx]に代入
 
 https://atcoder.jp/contests/abc293/submissions/39723643
 
-# 1次元累積和
+## 1次元累積和
 
 半閉半開区間の総和を高速に求められるデータ構造
 
@@ -1475,7 +1475,7 @@ class cumulative_sum {
 };
 ```
 
-# 座標圧縮版1次元累積和
+## 座標圧縮版1次元累積和
 
 巨大かつ疎な配列に対する累積和を取ることができるデータ構造
 
@@ -1544,7 +1544,7 @@ class cumulative_sum {
 };
 ```
 
-# sprintfのstring版
+## sprintfのstring版
 
 参考 https://pyopyopyo.hatenablog.com/entry/2019/02/08/102456
 
@@ -1558,7 +1558,7 @@ std::string format(const std::string &fmt, Args... args) {
 }
 ```
 
-# 木上の二点間の最短距離
+## 木上の二点間の最短距離
 
 ```cpp=
 // c++テンプレ
@@ -1634,7 +1634,7 @@ int main() {
 }
 ```
 
-# Fastio
+## Fastio
 
 高速で入出力を行えるstream
 
@@ -1645,13 +1645,13 @@ namespace Fastio{struct Reader{template<typename T>Reader&operator>>(T&x){x=0;sh
 #define endl Fastio::endl//;fflush(stdout)
 ```
 
-# MEXライブラリ
+## MEXライブラリ
 
 MEXの取得を$O(\log{N})$でできるらしい?
 
 https://rsk0315.hatenablog.com/entry/2020/10/11/125049
 
-# コンビネーション
+## コンビネーション
 
 $nCr$の計算を$O(r)$で行える
 
@@ -1671,7 +1671,7 @@ ll comb(ll n, ll r) {
 }
 ```
 
-# 文字列のスライスっぽいやつ
+## 文字列のスライスっぽいやつ
 
 文字列$S$の[l,r)での連続部分文字列を返す
 
@@ -1681,7 +1681,7 @@ string sub_string_slice(string &S, int l, int r) {
 }
 ```
 
-# 文字列の文字の置き換え
+## 文字列の文字の置き換え
 
 文字列$S$の中のbeforeをafterに置き換える
 
@@ -1691,7 +1691,7 @@ void string_replace(string &S, string before, string after) {
 }
 ```
 
-# priority_deque
+## priority_deque
 
 priority_queueの最大からでも最小からでも取り出せるようにしたクラス
 

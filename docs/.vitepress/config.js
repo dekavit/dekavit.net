@@ -1,23 +1,19 @@
 import { defineConfig } from 'vitepress'
-import katex from "markdown-it-katex"
-// export default defineConfig({
-//     lang: "ja",
-//     title: "dekavit.net",
-//             themeConfig: {
-//                 nav: [
-//                     { text: "top", link: "/dist/" },
-//                 ],
-//                 socialLinks: [
-//                     { icon: "github", link: "https://github.com/dekavit/" },
-//                 ],
-//             },
-    // base: '/dist/',
-//         markdown: {
-//             config: md => md.use(katex),
-//     },
-// })
-export default {
+import katex from 'markdown-it-katex'
+export default defineConfig({
+    lang: "ja",
+    title: "dekavit.net",
+    description: 'デフォルト説明文',
+    themeConfig: {
+        nav: [
+            { text: "top", link: "/" },
+            { text: "algorithm", link: "/algorithm/" },
+        ],
+        socialLinks: [
+            { icon: "github", link: "https://github.com/dekavit/" },
+        ],
+    },
     markdown: {
         config: md => md.use(katex),
-    }
-}
+    },
+})
