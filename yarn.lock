@@ -925,7 +925,7 @@ __metadata:
   resolution: "dekavit.net@workspace:."
   dependencies:
     "@types/react-katex": ^3.0.3
-    katex: ^0.16.9
+    katex: 0.6.0
     markdown-it-katex: ^2.0.3
     react-katex: ^3.0.1
     vitepress: ^1.0.0-rc.25
@@ -1251,18 +1251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"katex@npm:^0.16.0, katex@npm:^0.16.9":
-  version: 0.16.9
-  resolution: "katex@npm:0.16.9"
-  dependencies:
-    commander: ^8.3.0
-  bin:
-    katex: cli.js
-  checksum: 861194dfd4d86505e657f688fb73048d46ac498edafce71199502a35b03c0ecc35ba930c631be79c4a09d90a0d23476673cd52f6bc367c7a161854d64005fa95
-  languageName: node
-  linkType: hard
-
-"katex@npm:^0.6.0":
+"katex@npm:0.6.0, katex@npm:^0.6.0":
   version: 0.6.0
   resolution: "katex@npm:0.6.0"
   dependencies:
@@ -1270,6 +1259,17 @@ __metadata:
   bin:
     katex: cli.js
   checksum: 4595339a5c3431c05a5f767515789a0fc516141102c0ff5208f1bf3e50a4b43c2fa1f1f1130f6a877c4d6b25915e3ebcfc98bd473a286acfd7892225f5c25be0
+  languageName: node
+  linkType: hard
+
+"katex@npm:^0.16.0":
+  version: 0.16.9
+  resolution: "katex@npm:0.16.9"
+  dependencies:
+    commander: ^8.3.0
+  bin:
+    katex: cli.js
+  checksum: 861194dfd4d86505e657f688fb73048d46ac498edafce71199502a35b03c0ecc35ba930c631be79c4a09d90a0d23476673cd52f6bc367c7a161854d64005fa95
   languageName: node
   linkType: hard
 
