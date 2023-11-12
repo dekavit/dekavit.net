@@ -16,5 +16,6 @@
     "markdown-it-katex": "^2.0.3",
     "react-katex": "^3.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "packageManager": "yarn@3.6.4"
 }
