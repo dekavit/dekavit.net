@@ -1,0 +1,20 @@
+{
+  "name": "dekavit.net",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs && mv docs/.vitepress/dist dist",
+    "docs:serve": "vitepress serve docs"
+  },
+  "devDependencies": {
+    "@types/react-katex": "^3.0.3",
+    "vitepress": "^1.0.0-rc.25"
+  },
+  "dependencies": {
+    "markdown-it-katex": "^2.0.3",
+    "react-katex": "^3.0.1"
+  },
+  "type": "module"
+}
