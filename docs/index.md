@@ -10,10 +10,8 @@
 
 [C++で使えるグラフアルゴリズム詰め合わせ](/algorithm/graph/)
 
-## リンク集
+## アカウント
 
-Twitter:https://twitter.com/dekabit216
-
-GitHub:https://github.com/dekavit
-
-Atcoder:https://atcoder.jp/users/dekavit
+- Twitter:https://twitter.com/dekabit216
+- GitHub:https://github.com/dekavit
+- Atcoder:https://atcoder.jp/users/dekavit
