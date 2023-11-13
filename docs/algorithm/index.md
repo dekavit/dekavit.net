@@ -1,4 +1,4 @@
-# 競プロで使えそうなライブラリ
+# 競プロで使えそうなライブラリ(C++)
 
 自分用に使いそうなものをメモしておきます
 
@@ -1021,9 +1021,7 @@ template <class T> class frac {
 
 依存ライブラリ <atcoder/modint>,<atcoder/convolution>
 
-このライブラリを使用した関数一覧
-
-https://hackmd.io/@dekavit/BJCHEZAG6
+[このライブラリを使用した関数一覧](/algorithm/fps/)
 
 ```cpp=
 // 形式的冪級数
