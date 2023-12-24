@@ -82,7 +82,7 @@ class Graph {
 
     // このクラスにおけるMOD
     // void set_modで変更可能
-    long long MOD = 998244353;
+    long long _MOD = 998244353;
 
   public:
     Graph(int n) {
@@ -160,7 +160,7 @@ class Graph {
 
     // MODの値を変更する
     // O(1)
-    void set_mod(long long m) { MOD = m; }
+    void set_mod(long long m) { _MOD = m; }
 
     ///////////////////////////////////////////////////////////////////////////
 
