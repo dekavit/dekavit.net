@@ -1725,3 +1725,36 @@ class priority_deque : multiset<T,_Compare,_Alloc>{
         }
 };
 ```
+
+## 一次不定方程式
+
+一次不定方程式 $ax + by = c$の解を返す関数
+
+この方のを参考
+
+https://qiita.com/drken/items/b97ff231e43bce50199a
+
+verify https://atcoder.jp/contests/abc340/submissions/50210422
+
+```cpp
+long long extGCD(long long a, long long b, long long &x, long long &y) {
+    if (b == 0) {
+        x = 1, y = 0;
+        return a;
+    }
+    long long d = extGCD(b, a%b, y, x);
+    y -= a/b * x;
+    return d;
+}
+
+// ax + by = cとなるような整数組(x, y)を返す
+// そのような整数組がなければ1e17を返す
+void ind_eq(long long a, long long b, long long c, long long &x, long long &y){
+    long long d = extGCD(a,b,x,y);
+    if(c / d != c / (long double) d){
+        x = 1e17, y = 1e17;
+    }else{
+        x *= c / d, y *= c / d;
+    }
+}
+```
