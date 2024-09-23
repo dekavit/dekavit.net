@@ -15,6 +15,7 @@
 - 強連結成分分解 https://judge.yosupo.jp/submission/130760
 - 最長パスとそのコストを返す https://atcoder.jp/contests/dp/submissions/40288439 https://atcoder.jp/contests/abc291/submissions/40288789
 - 負辺がある時の単一始点の最短経路のパス https://algo-method.com/submissions/933064
+- LCA https://judge.yosupo.jp/submission/237533
 
 ## できること
 
@@ -34,6 +35,7 @@
 - 重み付きdsu
 - 強連結成分分解
 - 最長パスとそのコストを返す
+- LCA
 
 ## これから実装予定の機能
 
@@ -42,7 +44,6 @@
 ### 木構造
 
 - オイラーツアー
-- LCA
 - HL分解
 
 ## 実装したい機能(できるかわからない)
@@ -121,6 +122,7 @@ class Graph {
         Node[u].push_back({v, w, E});
         Edges.push_back({w, {u, v}});
         E++;
+        if(!lca_next.empty()) lca_next.clear();
         if(dsu_built) {
             return dsu_unite2(u, v, w);
         } else
@@ -686,6 +688,92 @@ class Graph {
     }
 
     // ここまでLibrary Checker
+    ///////////////////////////////////////////////////////////////////////////
+    // 根付き木関連のメンバ
+  private:
+    int tree_root=-1;
+
+  public:
+    // 根を設定
+    void tree_set_root(int root){
+        tree_root=root;
+    }
+
+  private:
+    // 根付き木上にある頂点の一つ上の親を求める
+    // O(V)
+    void tree_parents_dfs(int now, vector<int> &par){
+        for(auto x:Node[now]){
+            if(par[x.to]==-2){
+                par[x.to]=now;
+                tree_parents_dfs(x.to,par);
+            }
+        }
+    }
+
+  public:
+    // 根付き木上にある頂点の一つ上の親を格納した配列を返す
+    // O(V)
+    vector<int> tree_parents(){
+        if(tree_root==-1){
+            cout<<"Execute tree_root_set"<<endl;
+            exit(1);
+        }
+        vector<int> res(V,-2);
+        res[tree_root]=-1;
+        tree_parents_dfs(tree_root,res);
+        return res;
+    }
+
+    // 根付き木に対してLCAを求める
+    // 前計算O(VlogV),クエリ処理O(logV)
+  private:
+    vector<vector<int>> lca_next;
+    vector<int> lca_depth;
+
+  public:
+    // rootを根とした根付き木に対してLCAを構築
+    // O(VlogV)
+    void lca_build(){
+        if(tree_root==-1){
+            cout<<"Execute tree_root_set"<<endl;
+            exit(1);
+        }
+        long long K=1;
+        while(1LL<<K<V) K++;
+        if(!lca_next.empty()) lca_next.clear();
+        lca_next.assign(K,vector<int>(V, -1));
+        lca_next[0]=tree_parents();
+        auto depth=bfs(tree_root);
+        lca_depth.assign(V,-1);
+        for(int i=0;i<V;i++) lca_depth[i]=depth[i];
+        for(int k=0;k+1<K;k++){
+            for(int i=0;i<V;i++){
+                if(lca_next[k][i]==-1) lca_next[k+1][i]=-1;
+                else lca_next[k+1][i]=lca_next[k][lca_next[k][i]];
+            }
+        }
+    }
+
+    int lca(int u, int v){
+        if(lca_next.empty()) lca_build();
+        if(lca_next.empty()) return -1;
+        if(lca_depth[u]<lca_depth[v]) swap(u,v);
+        int K=lca_next.size();
+        for(int k=0;k<K;k++){
+            if((lca_depth[u]-lca_depth[v])>>k&1) u=lca_next[k][u];
+        }
+        if(u==v) return u;
+        for(int k=K-1;k>=0;k--){
+            if(lca_next[k][u]!=lca_next[k][v]){
+                u=lca_next[k][u];
+                v=lca_next[k][v];
+            }
+        }
+        return lca_next[0][u];
+    }
+
+    // ここまで根付き木アルゴリズム
     ///////////////////////////////////////////////////////////////////////////
     // 重み付きdsu(UnionFind)関連のメンバ
   private:
