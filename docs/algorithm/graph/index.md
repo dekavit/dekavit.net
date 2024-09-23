@@ -16,6 +16,10 @@
 - 最長パスとそのコストを返す https://atcoder.jp/contests/dp/submissions/40288439 https://atcoder.jp/contests/abc291/submissions/40288789
 - 負辺がある時の単一始点の最短経路のパス https://algo-method.com/submissions/933064
 - LCA https://judge.yosupo.jp/submission/237533
+- 木の直径
+https://algo-method.com/submissions/1519446
+- 木上の任意の2点間の距離
+https://algo-method.com/submissions/1519443
 
 ## できること
 
@@ -36,6 +40,8 @@
 - 強連結成分分解
 - 最長パスとそのコストを返す
 - LCA
+- 木の直径
+- 木上の任意の2点間の距離
 
 ## これから実装予定の機能
 
@@ -725,6 +731,27 @@ class Graph {
         return res;
     }
 
+    // 木の直径を求める
+    // O(V)
+    int tree_diameter(){
+        if(tree_root==-1){
+            cout<<"Execute tree_root_set"<<endl;
+            exit(1);
+        }
+        vector<long long> dist=bfs(tree_root);
+        long long Max=-1,idx=-1;
+        for(int i=0;i<V;i++){
+            if(Max<dist[i]){
+                Max=dist[i];
+                idx=i;
+            }
+        }
+        dist=bfs(idx);
+        Max=-1;
+        for(auto x:dist) Max=max(Max,x);
+        return Max;
+    }
+
     // 根付き木に対してLCAを求める
     // 前計算O(VlogV),クエリ処理O(logV)
   private:
@@ -771,6 +798,15 @@ class Graph {
             }
         }
         return lca_next[0][u];
+    }
+
+    // 木上の任意の2点間の距離を求める
+    // 前処理(LCAの構築) O(VlogV)
+    // クエリ処理 O(logV)
+    int tree_dist(int u, int v){
+        if(lca_next.empty()) lca_build();
+        if(lca_next.empty()) return -1;
+        return lca_depth[u]+lca_depth[v]-2*lca_depth[lca(u,v)];
     }
 
     // ここまで根付き木アルゴリズム
@@ -969,4 +1005,5 @@ class Graph {
 
     ///////////////////////////////////////////////////////////////////////////
 };
+
 ```
