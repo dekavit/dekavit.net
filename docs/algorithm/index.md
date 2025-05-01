@@ -1758,3 +1758,87 @@ void ind_eq(long long a, long long b, long long c, long long &x, long long &y){
     }
 }
 ```
+
+## Trie木
+
+文字列検索や接頭辞に強いデータ構造
+
+文字列挿入，頭からの最長連続共通部分列，最長の接頭辞，接頭辞の個数を$O(|S|)$で求められる
+
+```cpp
+using M = std::map<char, std::pair<std::any,long long>>;
+
+// Trie木
+// 接頭辞に強い
+// 終端文字として'\0'を使用
+class Trie{
+private:
+    list<M> node;
+
+public:
+    Trie(){
+        node.push_back(M{});
+    }
+
+    // 文字列SをTrie木に挿入
+    // O(|S|)
+    void insert(string S){
+        S.push_back('\0');
+        M* p=&node.front();
+        for(auto c:S){
+            if(p->find(c)==p->end()){
+                node.push_back(M{});
+                (*p)[c]=make_pair(any_cast<M*>(&node.back()),0LL);
+            }
+            (*p)[c].second++;
+            p = any_cast<M*>((*p)[c].first);
+        }
+    }
+
+    // Trie木の中にある文字列と文字列Sの最長連続共通部分列長を求める
+    // O(|S|)
+    int lcp(string S){
+        M* p=&node.front();
+        int res=0;
+        for(auto c:S){
+            if(p->find(c)==p->end()) break;
+            else{
+                p = any_cast<M*>((*p)[c].first);
+                res++;
+            }
+        }
+        return res;
+    }
+
+    // Trie木の中から文字列Sの最長の接頭辞を求め，その文字列長を返す
+    // O(|S|)
+    int ltp(string S){
+        S.push_back('\0');
+        M* p=&node.front();
+        int res=0,cnt=0;
+        for(auto c:S){
+            if(p->find('\0') != p->end()) res = cnt;
+            if(p->find(c)==p->end()) break;
+            else{
+                p = any_cast<M*>((*p)[c].first);
+                cnt++;
+            }
+        }
+        return res;
+    }
+
+    // Trie木の中から文字列Sの接頭辞の個数を求める
+    // O(|S|)
+    int prefix_count(string S){
+        S.push_back('\0');
+        M* p=&node.front();
+        int res=0,cnt=0;
+        for(auto c:S){
+            if(p->find('\0') != p->end()) res += (*p)['\0'].second;
+            if(p->find(c)==p->end()) break;
+            else p = any_cast<M*>((*p)[c].first);
+        }
+        return res;
+    }
+};
+```
