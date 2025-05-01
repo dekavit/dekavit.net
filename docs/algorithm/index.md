@@ -1766,14 +1766,30 @@ void ind_eq(long long a, long long b, long long c, long long &x, long long &y){
 文字列挿入，頭からの最長連続共通部分列，最長の接頭辞，接頭辞の個数を$O(|S|)$で求められる
 
 ```cpp
-using M = std::map<char, std::pair<std::any,long long>>;
-
 // Trie木
 // 接頭辞に強い
 // 終端文字として'\0'を使用
+using M = std::map<char, std::pair<std::any,long long>>;
 class Trie{
 private:
     list<M> node;
+
+    // _eraseの再帰関数
+    int _erase(M* p, string &S, int idx, long long cnt){
+        int res=0;
+        char c = S[idx];
+        auto nxt = p;
+        if(p->find('\0') != p->end() && c == '\0'){
+            if(cnt < 0) res = (*p)['\0'].second;
+            else res = min(cnt,(*p)['\0'].second);
+        }else if(p->find(c) != p->end()){
+            nxt = any_cast<M*>((*p)[c].first);
+            res = _erase(nxt,S,idx+1,cnt);
+        }
+        (*p)[c].second -= res;
+        if(!(*p)[c].second) (*p).erase(c);
+        return res;
+    }
 
 public:
     Trie(){
@@ -1839,6 +1855,16 @@ public:
             else p = any_cast<M*>((*p)[c].first);
         }
         return res;
+    }
+
+
+    // Trie木の中から文字列Sを指定個数削除
+    // 負の数や指定個数がオーバーした場合は全て削除
+    // O(|S|)
+    void erase(string S, long long cnt = 1){
+        S.push_back('\0');
+        M* p=&node.front();
+        _erase(p,S,0,cnt);
     }
 };
 ```
