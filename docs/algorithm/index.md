@@ -1868,3 +1868,9 @@ public:
   }
 };
 ```
+
+## k番目に小さい値を取得できるSet
+
+この方の記事を参考
+
+https://lorent-kyopro.hatenablog.com/entry/2020/12/20/201438
