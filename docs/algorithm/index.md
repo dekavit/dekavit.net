@@ -1871,6 +1871,84 @@ public:
 
 ## k番目に小さい値を取得できるSet
 
-この方の記事を参考
+この方の記事より
 
 https://lorent-kyopro.hatenablog.com/entry/2020/12/20/201438
+
+```cpp
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+template<typename T>
+using ordered_set = tree<T, null_type, std::less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+```
+
+例
+
+```cpp
+#include <iostream>
+int main() {
+    ordered_set<int> s;
+    s.insert(1);
+    s.insert(2);
+    s.insert(4);
+    s.insert(8);
+    s.insert(16);
+
+    // find_by_order : 0-indexed で k 番目に小さい値を指すイテレータを取得する
+    // O(log(n))
+    std::cout << *s.find_by_order(1) << std::endl; // 2
+    std::cout << *s.find_by_order(2) << std::endl; // 4
+    std::cout << *s.find_by_order(4) << std::endl; // 16
+    std::cout << (s.end() == s.find_by_order(6)) << std::endl; // true
+
+    // おまけ
+    // order_of_key : x 未満である要素数を取得する
+    // O(log(n))
+    std::cout << s.order_of_key(-5) << std::endl;  // 0
+    std::cout << s.order_of_key(1) << std::endl;   // 0
+    std::cout << s.order_of_key(3) << std::endl;   // 2
+    std::cout << s.order_of_key(4) << std::endl;   // 2
+    std::cout << s.order_of_key(400) << std::endl; // 5
+}
+```
+
+## pair tuple vectorのhash関数
+
+この方の記事より
+
+https://qiita.com/hamamu/items/4d081751b69aa3bb3557
+
+```cpp
+template<class T> size_t HashCombine(const size_t seed,const T &v){
+    return seed^(std::hash<T>()(v)+0x9e3779b9+(seed<<6)+(seed>>2));
+}
+/* pair用 */
+template<class T,class S> struct std::hash<std::pair<T,S>>{
+    size_t operator()(const std::pair<T,S> &keyval) const noexcept {
+        return HashCombine(std::hash<T>()(keyval.first), keyval.second);
+    }
+};
+/* vector用 */
+template<class T> struct std::hash<std::vector<T>>{
+    size_t operator()(const std::vector<T> &keyval) const noexcept {
+        size_t s=0;
+        for (auto&& v: keyval) s=HashCombine(s,v);
+        return s;
+    }
+};
+/* tuple用 */
+template<int N> struct HashTupleCore{
+    template<class Tuple> size_t operator()(const Tuple &keyval) const noexcept{
+        size_t s=HashTupleCore<N-1>()(keyval);
+        return HashCombine(s,std::get<N-1>(keyval));
+    }
+};
+template <> struct HashTupleCore<0>{
+    template<class Tuple> size_t operator()(const Tuple &keyval) const noexcept{ return 0; }
+};
+template<class... Args> struct std::hash<std::tuple<Args...>>{
+    size_t operator()(const tuple<Args...> &keyval) const noexcept {
+        return HashTupleCore<tuple_size<tuple<Args...>>::value>()(keyval);
+    }
+};
+```
