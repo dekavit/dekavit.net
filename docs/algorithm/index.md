@@ -1952,3 +1952,64 @@ template<class... Args> struct std::hash<std::tuple<Args...>>{
     }
 };
 ```
+
+## 二次元累積和
+
+verify? https://atcoder.jp/contests/abc461/submissions/76489405
+
+
+```cpp
+// 2次元累積和
+// [r1,r2)x[c1,c2)の範囲の総和をO(1)で求められる
+// 前計算O(HW),クエリの処理O(1)
+template<typename T>
+class cumulative_sum_2d {
+  private:
+    vector<vector<T>> v;
+    int H,W;
+    T e = 0;
+
+  public:
+    cumulative_sum_2d(int h, int w) {
+      v.resize(h+1);
+      for(auto &x : v) x.assign(w+1,e);
+      H = h, W = w;
+    }
+    cumulative_sum_2d(vector<vector<T>> &A) {
+      H = A.size(), W = A[0].size();
+      v.resize(H+1);
+      for(auto &x : v) x.assign(W+1,e);
+      for(int i = 0; i < H; i++){
+        for(int j = 0; j < W; j++){
+          v[i+1][j+1] = A[i][j];
+        }
+      }
+    }
+    // v[r][c]にxを代入
+    // O(1)
+    void set(int r, int c, T x) {
+      if(0<=r&&r<H&&0<=x&&c<W) v[r+1][c+1] = x;
+    }
+    // 累積和を構築
+    // O(HW)
+    void build() {
+      for(int i = 1; i <= H; i++) {
+        for(int j = 1; j <= W; j++) {
+          v[i][j] += v[i-1][j] + v[i][j-1] - v[i-1][j-1];
+        }
+      }
+    }
+    // [r1,r2)x[c1,c2)の総和を返す
+    // O(1)
+    T prod(int r1, int c1, int r2, int c2) {
+      if(0<=r1&&r1<r2&&r2<=H&&0<=c1&&c1<c2&&c2<=W){
+        return v[r2][c2] - v[r2][c1] - v[r1][c2] + v[r1][c1];
+      }else{
+        cerr<<"Out of range."<<endl;
+        return e;
+      }
+    }
+
+    vector<T> &operator[](int i) { return this->v[i]; }
+};
+```
