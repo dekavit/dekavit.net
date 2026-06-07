@@ -1962,19 +1962,19 @@ verify : https://atcoder.jp/contests/abc461/submissions/76506670
 // [r1,r2)x[c1,c2)の範囲の総和をO(1)で求められる
 // 前計算O(HW),クエリの処理O(1)
 template<typename T>
-class cumulative_sum_2d {
+class cumulative_sum_2d{
   private:
     vector<vector<T>> v;
     int H,W;
     T e = 0;
 
   public:
-    cumulative_sum_2d(int h, int w) {
+    cumulative_sum_2d(int h, int w){
       v.resize(h+1);
       for(auto &x : v) x.assign(w+1,e);
       H = h, W = w;
     }
-    cumulative_sum_2d(vector<vector<T>> &A) {
+    cumulative_sum_2d(vector<vector<T>> &A){
       H = A.size(), W = A[0].size();
       v.resize(H+1);
       for(auto &x : v) x.assign(W+1,e);
@@ -1986,9 +1986,14 @@ class cumulative_sum_2d {
     }
     // v[r][c]にxを代入
     // O(1)
-    void set(int r, int c, T x) {
+    void set(int r, int c, T x){
       if(0<=r&&r<H&&0<=x&&c<W) v[r+1][c+1] = x;
     }
+    void set(pair<int,int> p, T x){
+      auto [r,c] = p;
+      set(r,c,x);
+    }
+
     // 累積和を構築
     // O(HW)
     void build() {
@@ -2007,6 +2012,13 @@ class cumulative_sum_2d {
         cerr<<"Out of range."<<endl;
         return e;
       }
+    }
+    // p1xp2の総和を返す
+    // O(1)
+    T prod(pair<int,int> p1, pair<int,int> p2){
+      auto [r1,c1] = p1;
+      auto [r2,c2] = p2;
+      return prod(r1,c1,r2,c2);
     }
 
     vector<T> &operator[](int i) { return this->v[i]; }
