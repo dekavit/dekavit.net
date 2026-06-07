@@ -1955,8 +1955,7 @@ template<class... Args> struct std::hash<std::tuple<Args...>>{
 
 ## 二次元累積和
 
-verify? https://atcoder.jp/contests/abc461/submissions/76489405
-
+verify : https://atcoder.jp/contests/abc461/submissions/76506670
 
 ```cpp
 // 2次元累積和
