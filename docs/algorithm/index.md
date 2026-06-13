@@ -160,6 +160,60 @@ vector<bool> Eratosthenes(int N){
 }
 ```
 
+## エラトステネスの区間篩
+
+ToDo: 自分で実装する
+
+https://algo-method.com/tasks/332/editorial より
+
+```cpp=
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int main() {
+    // 入力が 32 ビット整数型に収まらないので long long 型
+    long long A, B;
+    cin >> A >> B;
+
+    // √B 以下の素数を炙り出すための篩
+    // ここでは大きめにサイズ 1100000 まで確保しておく
+    vector<bool> isprime(1100000, true);
+
+    // A 以上 B 以下の整数 v が素数かどうか
+    // その答えは isprime2[v-A] に格納される
+    vector<bool> isprime2(B - A + 1, true);
+
+    // ふるい
+    for (long long p = 2; p * p <= B; ++p) {
+        // すでに合成数であるものはスキップする
+        if (!isprime[p]) continue;
+
+        // p 以外の p の倍数から素数ラベルを剥奪
+        for (long long q = p * 2; q * q <= B; q += p) {
+            isprime[q] = false;
+        }
+
+        // start: A 以上の最小の p の倍数
+        long long start = (A + p - 1) / p * p;
+        if (start == p) start = p * 2;
+
+        // A 以上 B 以下の整数のうち、p の倍数をふるう
+        for (long long q = start; q <= B; q += p) {
+            isprime2[q - A] = false;
+        }
+    }
+
+    // 答え
+    long long res = 0;
+    for (long long q = A; q <= B; ++q) {
+        if (isprime2[q - A]) ++res;
+    }
+    cout << res << endl;
+}
+```
+
 ## 素因数分解
 
 素因数分解を行うアルゴリズム
