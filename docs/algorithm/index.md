@@ -1916,27 +1916,36 @@ class priority_deque : multiset<T,_Compare,_Alloc>{
 https://qiita.com/drken/items/b97ff231e43bce50199a
 
 verify https://atcoder.jp/contests/abc340/submissions/50210422
+       https://onlinejudge.u-aizu.ac.jp/status/users/dekavit/submissions/1/3296/judge/11588075/C++
 
 ```cpp
 long long extGCD(long long a, long long b, long long &x, long long &y) {
     if (b == 0) {
-        x = 1, y = 0;
-        return a;
+        x = (a >= 0 ? 1 : -1); // gcdを正にするため符号調整
+        y = 0;
+        return (a >= 0 ? a : -a);
     }
-    long long d = extGCD(b, a%b, y, x);
-    y -= a/b * x;
-    return d;
+    long long x1, y1;
+    long long g = extGCD(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
 }
 
 // ax + by = cとなるような整数組(x, y)を返す
-// そのような整数組がなければ1e17を返す
-void ind_eq(long long a, long long b, long long c, long long &x, long long &y){
+// c|gcd(a,b)のとき解ける
+// そのような整数組がなければINFを返す
+// 一般解はx = x' + (b/g)·n
+//        y = y' - (a/g)·n (nは任意の整数)
+pair<long long, long long> ind_eq(long long a, long long b, long long c){
+    long long x = INF,y = INF;
     long long d = extGCD(a,b,x,y);
-    if(c / d != c / (long double) d){
-        x = 1e17, y = 1e17;
+    if(c % d != 0){
+        x = INF, y = INF;
     }else{
         x *= c / d, y *= c / d;
     }
+    return {x,y};
 }
 ```
 
