@@ -170,6 +170,17 @@ class Graph {
     // O(1)
     void set_mod(long long m) { _MOD = m; }
 
+    // Graph x Graphで確認可能な形式で出力する
+    // https://hello-world-494ec.firebaseapp.com/
+    void print(bool weight = false){
+      cout<<V<<" "<<E<<endl;
+      for(auto x:Edges){
+        cout<<x.second.second<<" "<<x.second.first;
+        if(weight) cout<<" "<<x.first;
+        cout<<endl;
+      }
+    }
+
     ///////////////////////////////////////////////////////////////////////////
 
     // 基本的なグラフアルゴリズム関連のメンバ
