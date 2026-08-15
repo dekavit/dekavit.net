@@ -1850,6 +1850,26 @@ ll comb(ll n, ll r) {
 }
 ```
 
+## mintのbicom
+
+先に$n!$を計算しておくことで高速にコンビネーションを計算できる
+
+```cpp=
+vector<mint> frac(ll n){
+  vector<mint> res(n+1,1);
+  repp(i,1,n+1){
+    res[i] = res[i-1]*i;
+  }
+  return res;
+}
+
+mint bicom(ll n, ll r, vector<mint> &f){
+  if(n<0||r<0) return 0;
+  else if(n<r) return 0;
+  else return f[n]/f[n-r]/f[r];
+}
+```
+
 ## 文字列のスライスっぽいやつ
 
 文字列$S$の[l,r)での連続部分文字列を返す
