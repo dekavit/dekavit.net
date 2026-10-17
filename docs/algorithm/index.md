@@ -2234,3 +2234,19 @@ class cumulative_sum_2d{
     vector<T> &operator[](int i) { return this->v[i]; }
 };
 ```
+
+## オーバーフロー判定
+
+long doubleを使って桁数を概算する方法以外にGCCの組み込み関数を使う方法もある
+
+https://rsk0315.hatenablog.com/entry/2021/02/23/163040
+
+addやsubもあるらしい
+
+https://gcc.gnu.org/onlinedocs/gcc/Integer-Overflow-Builtins.html
+
+verify: https://atcoder.jp/contests/abc480/submissions/80160633
+
+```
+__builtin_mul_overflow(x, y, &z) //返り値:オーバーフローするとtrue, しなければx*yの結果がzに入る
+```
